@@ -1,0 +1,18 @@
+@import "tailwindcss";
+@theme{--color-bg:#0b0b0c;--color-bg2:#131316;--color-blue:#168BFF;--color-cyan:#58D9FF;--color-ink:#F5F7FA;--color-mute:#8c93a0}
+html{scroll-behavior:smooth;background:#0b0b0c}
+body{background:#0b0b0c;color:#F5F7FA;font-family:Inter,system-ui,sans-serif;overflow-x:hidden}
+section{scroll-margin-top:90px}
+.glass{background:#101013;border:1px solid rgba(255,255,255,.09);transition:border-color .3s,transform .3s}
+.glass:hover{border-color:rgba(88,217,255,.35)}
+header .glass,.glass.rounded-full{backdrop-filter:blur(12px);background:rgba(16,16,19,.8)}
+.label{font:500 .75rem ui-monospace,monospace;letter-spacing:.18em;text-transform:uppercase;color:#58D9FF}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.8rem 1.4rem;border-radius:999px;font-weight:600;transition:transform .25s,background .25s}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:#F5F7FA;color:#0b0b0c}.btn-primary:hover{background:#58D9FF}
+.btn-ghost{border:1px solid rgba(255,255,255,.2)}.btn-ghost:hover{border-color:#58D9FF}
+.blob{position:absolute;border-radius:50%;filter:blur(90px);background:radial-gradient(circle,#168BFF,transparent 70%);pointer-events:none}
+.marquee{display:flex;width:max-content;animation:mq 30s linear infinite}
+@keyframes mq{to{transform:translateX(-50%)}}
+:focus-visible{outline:2px solid #58D9FF;outline-offset:3px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
