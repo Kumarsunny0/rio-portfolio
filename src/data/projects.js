@@ -36,6 +36,18 @@ export const projects = [
     duration: '',
   },
   {
+    id: 'cinematic-edit-01',
+    title: 'Product Review Video Edit',
+    category: 'Long Video ',
+    description: '',
+    thumbnail: '',
+    mediaType: 'youtube',
+    mediaUrl: 'https://youtu.be/Ccj8Nwk8N4M',
+    tools: ['Filmora'],
+    date: '',
+    duration: '',
+  },
+  {
     id: 'local-reel-01',
     title: 'Instagram Reel',
     category: 'Reels & Shorts',
