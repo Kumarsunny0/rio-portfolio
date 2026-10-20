@@ -9,6 +9,6 @@ export default function App() {
     <IntroAnimation /><Navbar />
     <main><Hero /><About /><PortfolioGallery /><Services /><Pricing /><Contact /></main>
     <Footer />
-    <div className="fixed bottom-5 right-5 z-40"><TelegramContactButton /></div>
+    <div className="fixed bottom-5 right-5 z-40 glow-pill"><TelegramContactButton /></div>
   </>)
 }

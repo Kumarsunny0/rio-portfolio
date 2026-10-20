@@ -27,7 +27,7 @@ export function Services() {
 export function Pricing() {
   return (<section id="pricing" className="mx-auto max-w-6xl px-6 py-24"><p className="label">04 / Pricing</p><h2 className="mt-3 text-4xl font-bold tracking-tight sm:text-6xl">Pricing</h2>
     <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">{pricing.map(e => (
-      <motion.div key={e.name} {...reveal} className="glass flex flex-col rounded-2xl p-6"><p className="text-xs text-cyan">{e.group}</p><h3 className="text-lg font-bold">{e.name}</h3>
+      <motion.div key={e.name} {...reveal} className="glass glow-border flex flex-col rounded-2xl p-6"><p className="text-xs text-cyan">{e.group}</p><h3 className="text-lg font-bold">{e.name}</h3>
         <p className="mt-3 text-2xl font-black">{formatPrice(e)}</p><p className="text-xs text-mute">{e.unit}</p><p className="mt-3 text-sm text-mute">{e.description}</p>
         <ul className="mt-3 flex-1 space-y-1 text-sm text-mute">{e.deliverables.map(d => <li key={d}>✓ {d}</li>)}</ul>
         {e.delivery && <p className="mt-3 text-xs text-mute">Delivery: {e.delivery}</p>}{e.revisions && <p className="text-xs text-mute">Revisions: {e.revisions}</p>}

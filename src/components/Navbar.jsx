@@ -10,7 +10,7 @@ export default function Navbar() {
   }, [])
   return (
     <header className="fixed inset-x-0 top-4 z-50 flex justify-center px-4">
-      <nav aria-label="Main" className="glass flex w-full max-w-3xl items-center justify-between rounded-full px-3 py-2">
+      <nav aria-label="Main" className="glass glow-border flex w-full max-w-3xl items-center justify-between rounded-full px-3 py-2">
         <a href="#home" className="px-3 font-black tracking-widest">RIO</a>
         <ul className="hidden gap-1 md:flex">{links.map(([id,l]) => (
           <li key={id}><a href={`#${id}`} aria-current={active===id?'true':undefined} className={`relative block rounded-full px-4 py-2 text-sm ${active===id?'bg-blue/25 text-ink ring-1 ring-cyan/30':'text-mute hover:text-ink'}`}>{l}</a></li>))}</ul>
