@@ -16,3 +16,53 @@ header .glass,.glass.rounded-full{backdrop-filter:blur(12px);background:rgba(16,
 @keyframes mq{to{transform:translateX(-50%)}}
 :focus-visible{outline:2px solid #58D9FF;outline-offset:3px}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+/* RGB glow border */
+@property --a {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes rgb-spin {
+  to { --a: 360deg; }
+}
+
+.glass {
+  position: relative;
+  isolation: isolate;
+  border-color: transparent;
+}
+
+/* ghoomti hui RGB border */
+.glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: conic-gradient(from var(--a), #ff0040, #ff9900, #ffee00, #00ff6a, #00d0ff, #4d4dff, #d400ff, #ff0040);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: rgb-spin 4s linear infinite;
+  pointer-events: none;
+}
+
+/* halki glow */
+.glass::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: conic-gradient(from var(--a), #ff0040, #ff9900, #ffee00, #00ff6a, #00d0ff, #4d4dff, #d400ff, #ff0040);
+  filter: blur(16px);
+  opacity: 0.22;
+  animation: rgb-spin 4s linear infinite;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glass::before,
+  .glass::after { animation: none !important; }
+}
