@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react'
 import { Play, Maximize2, Instagram } from 'lucide-react'
 import { projects, categories } from '../data/projects'
 import VideoPlayerModal, { getYouTubeId } from './VideoPlayerModal'
+import Highlight from './Highlight'
 function Card({ p, onOpen, i }) {
   const yt = p.mediaType==='youtube' ? getYouTubeId(p.mediaUrl) : null
   const ytThumb = yt ? `https://i.ytimg.com/vi/${yt}/hqdefault.jpg` : null
@@ -29,7 +30,7 @@ export default function PortfolioGallery() {
   const list = cat===categories[0] ? projects : projects.filter(p => p.category===cat)
   return (
     <section id="work" className="mx-auto max-w-6xl px-6 py-24">
-      <p className="label">02 / Work</p><h2 className="mt-3 text-4xl font-bold tracking-tight sm:text-6xl">Selected Work</h2>
+      <p className="label">02 / Work</p><h2 className="mt-3 text-4xl font-bold tracking-tight sm:text-6xl">Selected <Highlight> Work</Highlight></h2>
       <div className="mt-6 flex flex-wrap gap-2" role="group" aria-label="Filter projects">{categories.map(c => (
         <button key={c} onClick={() => setCat(c)} aria-pressed={cat===c} className={`rounded-full px-4 py-2 text-sm ${cat===c?'bg-ink font-semibold text-bg':'glass text-mute hover:text-ink'}`}>{c}</button>))}</div>
       {list.length ? <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">{list.map((p,i) => <Card key={p.id} p={p} i={i} onOpen={setOpen} />)}</div>

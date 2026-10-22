@@ -5,7 +5,7 @@ import { pricing, pricingNote, formatPrice } from '../data/pricing'
 import { social } from '../data/socialLinks'
 import { about } from '../data/about'
 import TelegramContactButton from './TelegramContactButton'
-
+import Highlight from './Highlight'
 const reveal = { initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { duration: 0.6 } }
 const H2 = 'mt-3 text-4xl font-bold tracking-tight sm:text-6xl'
 const letters = 'ABCDEFGH'
@@ -69,7 +69,7 @@ export function Pricing() {
   return (
     <section id="pricing" className="mx-auto max-w-6xl px-6 py-24">
       <p className="label">04 / Pricing</p>
-      <h2 className={H2}>Simple, clear pricing.</h2>
+      <h2 className={H2}>Simple, clear <Highlight>pricing.</Highlight></h2>
       <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {pricing.map((e) => (
           <motion.div key={e.name} {...reveal} className="glass glow-border flex flex-col rounded-2xl p-6">
@@ -97,7 +97,7 @@ export function Contact() {
     <section id="contact" className="border-t border-white/10 px-6 py-28 text-center">
       <motion.div {...reveal} className="mx-auto max-w-3xl">
         <p className="label">Let's work together</p>
-        <h2 className="mt-4 text-5xl font-bold tracking-tight sm:text-7xl">Start your project.</h2>
+        <h2 className="mt-4 text-5xl font-bold tracking-tight sm:text-7xl">Start your <Highlight>project.</Highlight></h2>
         <p className="mx-auto mt-5 max-w-lg text-mute">
           Tell me what you're making. Telegram is the fastest way to reach me — you start the conversation, and I reply there.
         </p>

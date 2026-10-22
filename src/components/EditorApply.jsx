@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
 import { social } from '../data/socialLinks'
-
+import Highlight from './Highlight'
 const input = 'w-full rounded-xl border border-white/15 bg-bg/60 px-4 py-3 text-ink outline-none placeholder:text-mute/60 focus:border-cyan'
 const empty = { name: '', telegram: '', software: '', price: '', website: '' } // website = spam trap (hidden)
 
@@ -31,7 +31,7 @@ export default function EditorApply() {
     <section id="editors" className="border-t border-white/10 px-6 py-24">
       <div className="mx-auto max-w-2xl text-center">
         <p className="label">For editors</p>
-        <h2 className="mt-3 text-4xl font-bold sm:text-5xl">Are you a video editor?</h2>
+        <h2 className="mt-3 text-4xl font-bold sm:text-5xl"><Highlight>Are you a video editor?</Highlight></h2>
         <p className="mt-3 text-mute">Share a few details and I'll get in touch on Telegram.</p>
         <button onClick={() => setOpen(!open)} aria-expanded={open} className="btn btn-primary mt-6">You are an editor?</button>
       </div>

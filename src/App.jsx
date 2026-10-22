@@ -6,6 +6,7 @@ import Services from './components/Services'
 import SampleOffer from './components/SampleOffer'
 import EditorApply from './components/EditorApply'
 import TelegramContactButton from './components/TelegramContactButton'
+import ScrollRuler from './components/ScrollRuler'
 import { About, Pricing, Contact, Footer } from './components/Sections'
 
 export default function App() {
@@ -13,6 +14,7 @@ export default function App() {
     <>
       <IntroAnimation />
       <Navbar />
+      <ScrollRuler />
       <main>
         <Hero />
         <About />

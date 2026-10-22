@@ -42,3 +42,8 @@ header .glass{backdrop-filter:blur(12px)}
  background:conic-gradient(from var(--a),transparent 0 55%,#0a84ff 68%,#bf5af2 78%,#ff3b6b 88%,#ffd60a 96%,transparent);animation:border-orbit 8s linear infinite}
 :focus-visible{outline:2px solid #58D9FF;outline-offset:3px}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
+
+.hlx{position:relative;display:inline-block;padding:0 .22em;color:#58D9FF}
+.hlx-frame{position:absolute;border:1px solid rgba(255,255,255,.28);pointer-events:none}
+.hlx-frame i{position:absolute;width:13px;height:13px;color:rgba(255,255,255,.65);background:linear-gradient(currentColor,currentColor) center/1px 100% no-repeat,linear-gradient(currentColor,currentColor) center/100% 1px no-repeat}
+.hlx-frame .tl{left:-7px;top:-7px}.hlx-frame .tr{right:-7px;top:-7px}.hlx-frame .bl{left:-7px;bottom:-7px}.hlx-frame .br{right:-7px;bottom:-7px}

@@ -2,14 +2,14 @@ import { motion } from 'motion/react'
 import { services } from '../data/services'
 import { visuals } from './MotionGraphics'
 import TelegramContactButton from './TelegramContactButton'
-
+import Highlight from './Highlight'
 const reveal = { initial: { opacity: 0, y: 30 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: '-80px' }, transition: { duration: 0.7 } }
 
 export default function Services() {
   return (
     <section id="services" className="mx-auto max-w-6xl px-6 py-24">
       <p className="label">03 / Services</p>
-      <h2 className="mt-3 text-5xl font-bold sm:text-7xl">The control that makes a good edit great.</h2>
+      <h2 className="mt-3 text-5xl font-bold sm:text-7xl">The control that makes a good edit <Highlight>great.</Highlight></h2>
       <ol className="mt-14 space-y-6">
         {services.map((s, i) => {
           const Visual = visuals[i % visuals.length]

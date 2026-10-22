@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'motion/react'
 import TelegramContactButton from './TelegramContactButton'
+import Highlight from './Highlight'
 import { about } from '../data/about'
 
 const words = ['Turning', 'Ideas', 'Into', 'Visual', 'Experiences.']
@@ -14,14 +15,17 @@ export default function Hero() {
       <div className="relative mx-auto grid w-full max-w-6xl flex-1 items-center gap-10 px-6 md:grid-cols-[1.5fr_1fr]">
         <div>
           <p className="label">Rio Thakur / {about.roles}</p>
-          <h1 className="mt-5 text-6xl font-bold leading-[0.95] sm:text-8xl">
-            {words.map((w, i) => (
-              <span key={w} className="inline-block overflow-hidden pb-2 pr-4 align-bottom">
-                <motion.span className={`inline-block ${i > 2 ? 'text-blue' : ''}`} initial={{ y: '110%' }} animate={{ y: 0 }} transition={{ duration: 0.8, delay: 0.1 + i * 0.12, ease: [0.2, 0.7, 0.2, 1] }}>{w}</motion.span>
-              </span>
-            ))}
+          <h1 className="mt-5 text-[2.6rem] font-bold leading-[1.05] sm:text-7xl lg:text-8xl">
+            {words.map((w, i) => {
+              const word = (
+                <span className="inline-block overflow-hidden pb-2 align-bottom">
+                  <motion.span className="inline-block" initial={{ y: '110%' }} animate={{ y: 0 }} transition={{ duration: 0.8, delay: 0.1 + i * 0.12, ease: [0.2, 0.7, 0.2, 1] }}>{w}</motion.span>
+                </span>
+              )
+              return <span key={w} className="mr-4 inline-block align-bottom">{i === words.length - 1 ? <Highlight delay={0.9}>{word}</Highlight>: word}</span>
+            })}
           </h1>
-          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.9 }} className="mt-6 max-w-xl text-lg text-mute">
+          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.9 }} className="mt-8 max-w-xl text-lg text-mute">
             I'm Rio Thakur — a video editor and designer creating engaging videos, striking graphics, and modern digital experiences.
           </motion.p>
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.1 }} className="mt-8 flex flex-wrap gap-3">
