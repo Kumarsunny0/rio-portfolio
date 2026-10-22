@@ -1,174 +1,44 @@
 @import "tailwindcss";
-@theme{--color-bg:#0b0b0c;--color-bg2:#131316;--color-blue:#168BFF;--color-cyan:#58D9FF;--color-ink:#F5F7FA;--color-mute:#8c93a0}
-html{scroll-behavior:smooth;background:#0b0b0c}
-body{background:#0b0b0c;color:#F5F7FA;font-family:Inter,system-ui,sans-serif;overflow-x:hidden}
+@theme{--color-bg:#05070B;--color-bg2:#0A101A;--color-blue:#168BFF;--color-cyan:#58D9FF;--color-ink:#F5F7FA;--color-mute:#9BA8BA}
+html{scroll-behavior:smooth;background:#05070B}
+body{color:#F5F7FA;font-family:Inter,system-ui,sans-serif;overflow-x:hidden;background:
+ radial-gradient(60rem 28rem at 50% -8%,rgba(22,139,255,.25),transparent 70%),
+ linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px) 0 0/56px 56px,
+ linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px) 0 0/56px 56px,#05070B;background-attachment:fixed}
+h1,h2,h3{font-family:'Space Grotesk',Inter,system-ui,sans-serif;letter-spacing:-.02em}
 section{scroll-margin-top:90px}
-.glass{background:#101013;border:1px solid rgba(255,255,255,.09);transition:border-color .3s,transform .3s}
-.glass:hover{border-color:rgba(88,217,255,.35)}
-header .glass,.glass.rounded-full{backdrop-filter:blur(12px);background:rgba(16,16,19,.8)}
-.label{font:500 .75rem ui-monospace,monospace;letter-spacing:.18em;text-transform:uppercase;color:#58D9FF}
-.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.8rem 1.4rem;border-radius:999px;font-weight:600;transition:transform .25s,background .25s}
+.label{font:500 .75rem 'JetBrains Mono',ui-monospace,monospace;letter-spacing:.18em;text-transform:uppercase;color:#58D9FF}
+@layer components{
+.glass{position:relative;background:rgba(10,16,26,.72);border:1px solid rgba(22,139,255,.2);transition:border-color .3s,transform .3s}
+.glass:hover{border-color:rgba(88,217,255,.5)}
+header .glass{backdrop-filter:blur(12px)}
+}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.85rem 1.5rem;border-radius:999px;font-weight:600;transition:transform .25s,background .25s,border-color .25s}
 .btn:hover{transform:translateY(-2px)}
-.btn-primary{background:#F5F7FA;color:#0b0b0c}.btn-primary:hover{background:#58D9FF}
-.btn-ghost{border:1px solid rgba(255,255,255,.2)}.btn-ghost:hover{border-color:#58D9FF}
+.btn-primary{background:#168BFF;color:#fff;box-shadow:0 10px 30px -10px #168BFF}.btn-primary:hover{background:#58D9FF;color:#05070B}
+.btn-ghost{border:1px solid rgba(255,255,255,.22)}.btn-ghost:hover{border-color:#58D9FF}
 .blob{position:absolute;border-radius:50%;filter:blur(90px);background:radial-gradient(circle,#168BFF,transparent 70%);pointer-events:none}
-.marquee{display:flex;width:max-content;animation:mq 30s linear infinite}
-@keyframes mq{to{transform:translateX(-50%)}}
+.marquee{display:flex;width:max-content;animation:mq 30s linear infinite}@keyframes mq{to{transform:translateX(-50%)}}
+/* motion graphics */
+.pl{animation:pl 6s linear infinite}@keyframes pl{from{transform:translateX(0)}to{transform:translateX(380px)}}
+.clip{transform-box:fill-box;transform-origin:left;animation:clip 6s ease-in-out infinite;animation-delay:var(--d,0s)}
+@keyframes clip{0%{transform:scaleX(0)}15%,85%{transform:scaleX(1)}100%{transform:scaleX(0)}}
+.bar{transform-box:fill-box;transform-origin:center;animation:bar 1.1s ease-in-out infinite alternate;animation-delay:var(--d,0s)}
+@keyframes bar{from{transform:scaleY(.25)}to{transform:scaleY(1)}}
+.draw{stroke-dasharray:520;animation:draw 4s ease-in-out infinite}@keyframes draw{0%{stroke-dashoffset:520}60%,100%{stroke-dashoffset:0}}
+.ride{offset-path:path('M20 160 C120 160 140 40 200 40 S300 160 380 60');animation:ride 4s ease-in-out infinite}
+@keyframes ride{from{offset-distance:0%}60%,100%{offset-distance:100%}}
+.flt{animation:flt 4s ease-in-out infinite alternate;animation-delay:var(--d,0s)}@keyframes flt{from{transform:translateY(0)}to{transform:translateY(-14px)}}
+.shim{animation:shim 2s ease-in-out infinite alternate;animation-delay:var(--d,0s)}@keyframes shim{from{opacity:.25}to{opacity:.85}}
+.cur{animation:cur 6s ease-in-out infinite}@keyframes cur{0%,100%{transform:translate(60px,60px)}30%{transform:translate(220px,70px)}60%{transform:translate(240px,150px)}}
+/* border glow: navbar, Let's Talk, pricing (slow) */
+@property --a{syntax:'<angle>';initial-value:0deg;inherits:false}
+@keyframes border-orbit{to{--a:360deg}}
+.glow-border::after{content:'';position:absolute;inset:-1px;border-radius:inherit;padding:2px;pointer-events:none;
+ background:conic-gradient(from var(--a),transparent 0 55%,#0a84ff 68%,#bf5af2 78%,#ff3b6b 88%,#ffd60a 96%,transparent);
+ -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:border-orbit 8s linear infinite}
+.glow-pill{padding:2px;border-radius:999px}
+.glow-pill::before{content:'';position:absolute;inset:0;z-index:-1;border-radius:inherit;pointer-events:none;
+ background:conic-gradient(from var(--a),transparent 0 55%,#0a84ff 68%,#bf5af2 78%,#ff3b6b 88%,#ffd60a 96%,transparent);animation:border-orbit 8s linear infinite}
 :focus-visible{outline:2px solid #58D9FF;outline-offset:3px}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
-
-/* iOS Liquid Glass */
-/* iOS 26 Liquid Glass */
-
-/* iOS 26 Liquid Glass v2 */
-
-body {
-  background: #07080b;
-}
-
-/* glass ke peeche chhote rangeen golay */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background:
-    radial-gradient(10rem 10rem at 12% 14%, rgba(255, 140, 30, 0.75), transparent 72%),
-    radial-gradient(14rem 14rem at 88% 20%, rgba(20, 130, 255, 0.75), transparent 72%),
-    radial-gradient(9rem 9rem at 70% 52%, rgba(255, 60, 130, 0.6), transparent 72%),
-    radial-gradient(13rem 13rem at 15% 58%, rgba(150, 70, 255, 0.7), transparent 72%),
-    radial-gradient(10rem 10rem at 45% 82%, rgba(40, 215, 140, 0.55), transparent 72%),
-    radial-gradient(12rem 12rem at 92% 88%, rgba(255, 210, 40, 0.45), transparent 72%);
-}
-
-.glass {
-  position: relative;
-  isolation: isolate;
-  background: rgba(255, 255, 255, 0.05);
-  -webkit-backdrop-filter: blur(14px) saturate(210%) brightness(1.08) contrast(1.05);
-  backdrop-filter: blur(14px) saturate(210%) brightness(1.08) contrast(1.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.35),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.1),
-    inset 0 0 22px rgba(255, 255, 255, 0.06),
-    0 16px 40px rgba(0, 0, 0, 0.35);
-  transition: transform 0.35s, background 0.35s;
-}
-
-.glass:not(.rounded-full) { border-radius: 28px; }
-.glass:not(.absolute):not(.fixed) { position: relative; }
-
-/* upar ki patli chamak */
-.glass::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  border-radius: inherit;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.14), transparent 24%);
-  pointer-events: none;
-}
-
-/* kinare ki roshni: upar-left aur neeche-right me tez */
-.glass::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1.5px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.05) 30%, rgba(255, 255, 255, 0.05) 70%, rgba(255, 255, 255, 0.6));
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
-}
-
-/* navbar pill: rainbow kinara, jaise App Library search bar */
-.glass.rounded-full::after {
-  padding: 2px;
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.7), transparent 35%, transparent 65%, rgba(255, 255, 255, 0.5)),
-    linear-gradient(90deg, #ff3b6b, #ff9f0a, #ffd60a, #30d158, #0a84ff, #bf5af2);
-  opacity: 0.8;
-}
-
-.glass:hover {
-  transform: translateY(-3px);
-  background: rgba(255, 255, 255, 0.08);
-}
-
-.btn-ghost {
-  background: rgba(255, 255, 255, 0.07);
-  -webkit-backdrop-filter: blur(14px) saturate(200%);
-  backdrop-filter: blur(14px) saturate(200%);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.5);
-}
-/* Border glow: sirf navbar, Let's Talk aur pricing cards */
-@property --a {
-  syntax: '<angle>';
-  initial-value: 0deg;
-  inherits: false;
-}
-
-@keyframes border-spin {
-  to { --a: 360deg; }
-}
-
-/* navbar aur pricing cards: purani border ko ghoomti line se badal do */
-.glass.glow-border::after {
-  padding: 2px;
-  opacity: 1;
-  background: conic-gradient(
-    from var(--a),
-    rgba(255, 255, 255, 0.08) 0%,
-    rgba(255, 255, 255, 0.08) 55%,
-    #0a84ff 68%,
-    #bf5af2 78%,
-    #ff3b6b 88%,
-    #ffd60a 96%,
-    rgba(255, 255, 255, 0.08) 100%
-  );
-  animation: border-spin 8s linear infinite;
-}
-
-/* Let's Talk button: chaaron taraf ghoomti line aur halka glow */
-.glow-pill {
-  padding: 2px;
-  border-radius: 999px;
-  isolation: isolate;
-}
-
-.glow-pill::before,
-.glow-pill::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  border-radius: inherit;
-  background: conic-gradient(
-    from var(--a),
-    transparent 0%,
-    transparent 55%,
-    #0a84ff 68%,
-    #bf5af2 78%,
-    #ff3b6b 88%,
-    #ffd60a 96%,
-    transparent 100%
-  );
-  animation: border-spin 8s linear infinite;
-  pointer-events: none;
-}
-
-.glow-pill::after {
-  filter: blur(10px);
-  opacity: 0.6;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .glass.glow-border::after,
-  .glow-pill::before,
-  .glow-pill::after { animation: none !important; }
-}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
