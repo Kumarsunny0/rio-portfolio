@@ -15,7 +15,7 @@ export default function App() {
       <IntroAnimation />
       <Navbar />
       <ScrollRuler />
-      <main>
+         <main className="lg:max-xl:pr-12">
         <Hero />
         <About />
         <PortfolioGallery />

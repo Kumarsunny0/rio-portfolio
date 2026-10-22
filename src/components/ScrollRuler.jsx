@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react'
 import { useScroll, useTransform, useMotionValueEvent, motion } from 'motion/react'
 
-const marks = [['home', 'Home'], ['about', 'About'], ['work', 'Work'], ['services', 'Services'], ['pricing', 'Pricing'], ['contact', 'Contact']]
+// Ruler right side me. Mouse ruler par le jao to saare sections ke naam left me aa jate hain.
+const marks = [
+  ['home', 'Home'], ['about', 'About'], ['work', 'Work'], ['services', 'Services'],
+  ['sample', 'Paid Sample'], ['pricing', 'Pricing'], ['contact', 'Contact'], ['editors', 'Editors'],
+]
 const maxScroll = () => Math.max(1, document.documentElement.scrollHeight - window.innerHeight)
 const clamp = (n) => Math.min(100, Math.max(0, n))
 
@@ -11,13 +15,14 @@ export default function ScrollRuler() {
   const [pos, setPos] = useState([])
   const [active, setActive] = useState('home')
   const [hover, setHover] = useState(null)
+  const [open, setOpen] = useState(false)
 
   useEffect(() => {
     const calc = () => {
       const list = marks
         .map(([id, label]) => { const el = document.getElementById(id); return el ? { id, label, pct: clamp(((el.getBoundingClientRect().top + window.scrollY) / maxScroll()) * 100) } : null })
         .filter(Boolean)
-      for (let i = 1; i < list.length; i++) list[i].pct = Math.max(list[i].pct, list[i - 1].pct + 4) // overlap na ho
+      for (let i = 1; i < list.length; i++) list[i].pct = Math.max(list[i].pct, list[i - 1].pct + 4) // naam ek doosre par na chadhein
       let cap = 97
       for (let i = list.length - 1; i >= 0; i--) { list[i].pct = Math.min(list[i].pct, cap); cap = list[i].pct - 4 }
       setPos(list)
@@ -35,36 +40,35 @@ export default function ScrollRuler() {
   const move = (e) => { const r = e.currentTarget.getBoundingClientRect(); setHover(clamp(((e.clientY - r.top) / r.height) * 100)) }
   const jump = () => { if (hover != null) window.scrollTo({ top: (hover / 100) * maxScroll(), behavior: 'smooth' }) }
   const go = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+  const hoverId = hover != null ? nearest(hover)?.id : null
 
   return (
-    <>
-      {/* ruler: mouse se hover karo aur click karke us jagah jao */}
-      <div aria-hidden="true" onMouseMove={move} onMouseLeave={() => setHover(null)} onClick={jump}
-        className="fixed left-0 top-0 z-30 hidden h-screen w-12 cursor-pointer select-none xl:block">
-        {Array.from({ length: 101 }, (_, i) => (
-          <div key={i} className={`absolute left-0 h-px ${i % 10 === 0 ? 'w-5 bg-white/70' : i % 5 === 0 ? 'w-3.5 bg-white/45' : 'w-2 bg-white/25'}`} style={{ top: `${i}%` }} />
-        ))}
-        {[0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100].map((n) => (
-          <span key={n} className="absolute left-6 -translate-y-1/2 font-mono text-[9px] text-mute" style={{ top: `${n}%` }}>{n}</span>
-        ))}
-        <motion.div style={{ top }} className="absolute left-0 h-[2px] w-10 bg-white" />
-        {hover != null && (
-          <div className="absolute left-0 h-px w-12 bg-blue" style={{ top: `${hover}%` }}>
-            <span className="absolute left-14 -top-2.5 whitespace-nowrap rounded border border-blue/40 bg-bg/90 px-2 py-0.5 font-mono text-[10px] text-cyan">
-              {String(Math.round(hover)).padStart(3, '0')} %{nearest(hover) ? ` · ${nearest(hover).label.toUpperCase()}` : ''}
-            </span>
-          </div>
-        )}
-      </div>
-      {/* section ke naam (bade screen par) */}
-      <nav aria-label="Page sections" className="pointer-events-none fixed left-16 top-0 z-30 hidden h-screen 2xl:block">
+    <div onMouseEnter={() => setOpen(true)} onMouseLeave={() => { setOpen(false); setHover(null) }}
+      className={`fixed right-0 top-0 z-30 hidden h-screen lg:block ${open ? 'w-64 bg-gradient-to-l from-bg/90 via-bg/60 to-transparent' : 'w-12'}`}>
+      {/* section ke naam: sirf hover par */}
+      <nav aria-label="Page sections" className={open ? '' : 'pointer-events-none'}>
         {pos.map((p) => (
-          <button key={p.id} onClick={() => go(p.id)} style={{ top: `${p.pct}%` }}
-            className={`pointer-events-auto absolute -translate-y-1/2 whitespace-nowrap font-mono text-[11px] uppercase tracking-[.18em] transition-colors ${active === p.id ? 'text-ink' : 'text-mute hover:text-ink'}`}>
+          <button key={p.id} tabIndex={open ? 0 : -1} onClick={() => go(p.id)} style={{ top: `${p.pct}%` }}
+            className={`absolute right-14 -translate-y-1/2 whitespace-nowrap text-right font-mono text-xs uppercase tracking-[.18em] transition-all duration-300 ${open ? 'translate-x-0 opacity-100' : 'translate-x-3 opacity-0'} ${hoverId === p.id ? 'text-cyan' : active === p.id ? 'text-ink' : 'text-mute hover:text-ink'}`}>
             {p.label}
           </button>
         ))}
       </nav>
-    </>
+      {/* ruler strip */}
+      <div aria-hidden="true" onMouseMove={move} onClick={jump} className="absolute right-0 top-0 h-full w-12 cursor-pointer select-none">
+        {Array.from({ length: 101 }, (_, i) => (
+          <div key={i} className={`absolute right-0 h-px ${i % 10 === 0 ? 'w-5 bg-white/70' : i % 5 === 0 ? 'w-3.5 bg-white/45' : 'w-2 bg-white/25'}`} style={{ top: `${i}%` }} />
+        ))}
+        {[0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100].map((n) => (
+          <span key={n} className="absolute right-6 -translate-y-1/2 font-mono text-[9px] text-mute" style={{ top: `${n}%` }}>{n}</span>
+        ))}
+        <motion.div style={{ top }} className="absolute right-0 h-[2px] w-10 bg-white" />
+        {hover != null && (
+          <div className="absolute right-0 h-px w-12 bg-blue" style={{ top: `${hover}%` }}>
+            <span className="absolute right-1 top-1 rounded bg-blue/20 px-1 font-mono text-[10px] text-cyan">{String(Math.round(hover)).padStart(3, '0')} %</span>
+          </div>
+        )}
+      </div>
+    </div>
   )
 }
